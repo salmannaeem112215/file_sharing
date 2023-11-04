@@ -1,3 +1,4 @@
+import 'package:file_sharing/features/home/presentation/widgets/smart_room_view.dart';
 import 'package:flutter/material.dart';
 import 'package:file_sharing/core/core.dart';
 import 'package:ui_common/ui_common.dart';
@@ -15,8 +16,6 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  final controller = ScrollController();
-
   @override
   Widget build(BuildContext context) {
     return LightedBackgound(
@@ -29,26 +28,8 @@ class _HomeScreenState extends State<HomeScreen> {
               const SizedBox(height: 24),
               Text("SELECT A ROOM", style: context.bodyLarge),
               kHeight32,
-              Expanded(
-                child: Stack(
-                  clipBehavior: Clip.none,
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.only(bottom: 180),
-                      child: SmartRoomsPageView(controller: controller),
-                    ),
-                    const Positioned.fill(
-                      top: null,
-                      child: Column(
-                        children: [
-                          PageIndicators(),
-                          SmHomeBottomNavigationBar(),
-                        ],
-                      ),
-                    ),
-                  ],
-                ),
-              ),
+              const SmartRoomView(),
+              const SmHomeBottomNavigationBar(),
             ],
           ),
         ),

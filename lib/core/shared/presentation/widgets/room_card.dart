@@ -30,7 +30,7 @@ class RoomCard extends StatelessWidget {
       print("CARD CONTEXT ${context.size?.width}");
     });
     return AspectRatio(
-      aspectRatio: 8 / 16,
+      aspectRatio: 4 / 7,
       child: TweenAnimationBuilder<double>(
         duration: const Duration(milliseconds: 200),
         curve: Curves.fastOutSlowIn,
