@@ -15,7 +15,7 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  final controller = PageController(viewportFraction: 0.8);
+  final controller = ScrollController();
 
   @override
   Widget build(BuildContext context) {
@@ -31,13 +31,12 @@ class _HomeScreenState extends State<HomeScreen> {
               kHeight32,
               Expanded(
                 child: Stack(
-                  fit: StackFit.expand,
                   clipBehavior: Clip.none,
                   children: [
-                    SizedBox(
-                        width: 100,
-                        height: 100,
-                        child: SmartRoomsPageView(controller: controller)),
+                    Padding(
+                      padding: const EdgeInsets.only(bottom: 180),
+                      child: SmartRoomsPageView(controller: controller),
+                    ),
                     const Positioned.fill(
                       top: null,
                       child: Column(

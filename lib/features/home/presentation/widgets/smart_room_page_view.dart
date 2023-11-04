@@ -11,14 +11,18 @@ class SmartRoomsPageView extends StatelessWidget {
     required this.controller,
   });
 
-  final PageController controller;
+  final ScrollController controller;
 
   @override
   Widget build(BuildContext context) {
+    controller.addListener(() {
+      print(controller.offset);
+    });
     return ScrollConfiguration(
       behavior: MyCustomScrollBehavior(),
       child: ListView.builder(
-        // scrollBehavior: MyCustomScrollBehavior(),
+        controller: controller,
+        physics: const BouncingScrollPhysics(),
         scrollDirection: Axis.horizontal,
         itemCount: SmartRoom.fakeValues.length,
         itemBuilder: (_, index) {

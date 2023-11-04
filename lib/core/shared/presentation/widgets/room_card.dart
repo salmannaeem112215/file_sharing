@@ -22,8 +22,13 @@ class RoomCard extends StatelessWidget {
   final VoidCallback onTap;
   final bool expand;
 
+  static const double bottomPadding = 0;
+
   @override
   Widget build(BuildContext context) {
+    Future.delayed(Duration(seconds: 1)).then((value) {
+      print("CARD CONTEXT ${context.size?.width}");
+    });
     return AspectRatio(
       aspectRatio: 8 / 16,
       child: TweenAnimationBuilder<double>(
@@ -37,7 +42,7 @@ class RoomCard extends StatelessWidget {
             // Background information card
             // -----------------------------------------------
             Padding(
-              padding: const EdgeInsets.only(bottom: 180),
+              padding: const EdgeInsets.only(bottom: bottomPadding),
               child: BackgroundRoomCard(room: room, translation: value),
             ),
 
@@ -45,7 +50,7 @@ class RoomCard extends StatelessWidget {
             // Room image card with parallax effect
             // -----------------------------------------------
             Padding(
-              padding: const EdgeInsets.only(bottom: 200),
+              padding: const EdgeInsets.only(bottom: bottomPadding + 20),
               child: GestureDetector(
                 onTap: onTap,
                 onVerticalDragUpdate: (details) {
