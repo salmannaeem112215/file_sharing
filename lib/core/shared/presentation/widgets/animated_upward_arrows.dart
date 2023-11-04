@@ -15,7 +15,7 @@ class AnimatedUpwardArrows extends StatelessWidget {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.end,
         children: [
-          const ShimmerArrows(),
+          const ShimmerArrows(direction: ShimmerArrowDirection.up),
           const SizedBox(height: 24),
           Container(
             margin: const EdgeInsets.only(bottom: 12),
