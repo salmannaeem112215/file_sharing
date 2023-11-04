@@ -26,9 +26,6 @@ class RoomCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Future.delayed(Duration(seconds: 1)).then((value) {
-      print("CARD CONTEXT ${context.size?.width}");
-    });
     return AspectRatio(
       aspectRatio: 4 / 7,
       child: TweenAnimationBuilder<double>(

@@ -1,7 +1,6 @@
 import 'package:file_sharing/core/core.dart';
 import 'package:flutter/material.dart';
 
-import '../../../../core/shared/domain/entities/smart_room.dart';
 import '../../../../core/shared/presentation/widgets/room_card.dart';
 import '../../../smart_room/screens/room_details_screen.dart';
 
@@ -11,23 +10,22 @@ class SmartRoomsPageView extends StatelessWidget {
     required this.controller,
   });
 
-  final ScrollController controller;
+  final PageController controller;
+  static get length => SmartRoom.fakeValues.length;
+  static final listKey = GlobalKey();
 
   @override
   Widget build(BuildContext context) {
-    controller.addListener(() {
-      print(controller.offset);
-    });
     return ScrollConfiguration(
       behavior: MyCustomScrollBehavior(),
-      child: ListView.builder(
+      child: PageView.builder(
         controller: controller,
-        physics: const BouncingScrollPhysics(),
-        scrollDirection: Axis.horizontal,
+        clipBehavior: Clip.none,
+        padEnds: false,
         itemCount: SmartRoom.fakeValues.length,
         itemBuilder: (_, index) {
           final room = SmartRoom.fakeValues[index];
-          return Padding(
+          return Container(
             padding: const EdgeInsets.symmetric(horizontal: 16),
             child: RoomCard(
               percent: 0,
@@ -48,57 +46,5 @@ class SmartRoomsPageView extends StatelessWidget {
         },
       ),
     );
-
-    // controller: controller,
-    // clipBehavior: Clip.none,
-    // itemCount: SmartRoom.fakeValues.length,
-    // itemBuilder: (_, index) {
-    //   final room = SmartRoom.fakeValues[index];
-    //   return Container(
-    //     padding: const EdgeInsets.symmetric(horizontal: 16),
-    //     child: RoomCard(
-    //       percent: 0,
-    //       expand: false,
-    //       room: room,
-    //       onSwipeUp: () {},
-    //       onSwipeDown: () {},
-    //       onTap: () {
-    //         Navigator.push(
-    //           context,
-    //           MaterialPageRoute(
-    //             builder: (context) => RoomDetailScreen(room: room),
-    //           ),
-    //         );
-    //       },
-    //     ),
-    //   );
-    // },
-
-    // PageView.builder(
-    //   controller: controller,
-    //   clipBehavior: Clip.none,
-    //   itemCount: SmartRoom.fakeValues.length,
-    //   itemBuilder: (_, index) {
-    //     final room = SmartRoom.fakeValues[index];
-    //     return Container(
-    //       padding: const EdgeInsets.symmetric(horizontal: 16),
-    //       child: RoomCard(
-    //         percent: 0,
-    //         expand: false,
-    //         room: room,
-    //         onSwipeUp: () {},
-    //         onSwipeDown: () {},
-    //         onTap: () {
-    //           Navigator.push(
-    //             context,
-    //             MaterialPageRoute(
-    //               builder: (context) => RoomDetailScreen(room: room),
-    //             ),
-    //           );
-    //         },
-    //       ),
-    //     );
-    //   },
-    // );
   }
 }

@@ -14,7 +14,9 @@ class SmartRoomView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final controller = ScrollController();
+    final screenWidth = MediaQuery.of(context).size.width;
+    final controller =
+        PageController(viewportFraction: getViewportFraction(screenWidth));
 
     return Expanded(
       child: Stack(
@@ -35,5 +37,13 @@ class SmartRoomView extends StatelessWidget {
         ],
       ),
     );
+  }
+
+  getViewportFraction(double width) {
+    // if (width < 350) {
+    //   return 0.8;
+    // } else {
+    return 0.8 / (width / 350);
+    // }
   }
 }
