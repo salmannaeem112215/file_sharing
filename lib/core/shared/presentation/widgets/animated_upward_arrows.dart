@@ -6,7 +6,10 @@ import 'shimmer_arrows.dart';
 class AnimatedUpwardArrows extends StatelessWidget {
   const AnimatedUpwardArrows({
     super.key,
+    required this.isExpanded,
   });
+
+  final bool isExpanded;
 
   @override
   Widget build(BuildContext context) {
@@ -15,7 +18,10 @@ class AnimatedUpwardArrows extends StatelessWidget {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.end,
         children: [
-          const ShimmerArrows(direction: ShimmerArrowDirection.up),
+          ShimmerArrows(
+              direction: isExpanded
+                  ? ShimmerArrowDirection.down
+                  : ShimmerArrowDirection.up),
           const SizedBox(height: 24),
           Container(
             margin: const EdgeInsets.only(bottom: 12),

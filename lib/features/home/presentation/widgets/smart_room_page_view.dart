@@ -10,9 +10,11 @@ class SmartRoomsPageView extends StatelessWidget {
     required this.controller,
     required this.pageNotifier,
     required this.cardPerScreen,
+    required this.roomSelectorNotifier,
   });
 
   final ValueNotifier<double> pageNotifier;
+  final ValueNotifier<int> roomSelectorNotifier;
   final double cardPerScreen;
 
   final PageController controller;
@@ -26,34 +28,40 @@ class SmartRoomsPageView extends StatelessWidget {
       child: ValueListenableBuilder(
           valueListenable: pageNotifier,
           builder: (_, currentPage, __) {
-            return PageView.builder(
-              controller: controller,
-              clipBehavior: Clip.none,
-              padEnds: false,
-              itemCount: SmartRoom.fakeValues.length,
-              itemBuilder: (_, index) {
-                final room = SmartRoom.fakeValues[index];
-                return Container(
-                  padding: const EdgeInsets.symmetric(
-                      horizontal: RoomCard.cardPadding / 2),
-                  child: RoomCard(
-                    percent: getPercent(curentPage: currentPage, index: index),
-                    expand: false,
-                    room: room,
-                    onSwipeUp: () {},
-                    onSwipeDown: () {},
-                    onTap: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => RoomDetailScreen(room: room),
+            return ValueListenableBuilder(
+                valueListenable: roomSelectorNotifier,
+                builder: (_, selected, __) {
+                  return PageView.builder(
+                    controller: controller,
+                    clipBehavior: Clip.none,
+                    padEnds: false,
+                    itemCount: SmartRoom.fakeValues.length,
+                    itemBuilder: (_, index) {
+                      final room = SmartRoom.fakeValues[index];
+                      return Container(
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: RoomCard.cardPadding / 2),
+                        child: RoomCard(
+                          percent:
+                              getPercent(curentPage: currentPage, index: index),
+                          expand: selected == index,
+                          room: room,
+                          onSwipeUp: () => roomSelectorNotifier.value = index,
+                          onSwipeDown: () => roomSelectorNotifier.value = -1,
+                          onTap: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) =>
+                                    RoomDetailScreen(room: room),
+                              ),
+                            );
+                          },
                         ),
                       );
                     },
-                  ),
-                );
-              },
-            );
+                  );
+                });
           }),
     );
   }

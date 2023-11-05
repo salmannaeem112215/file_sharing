@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:file_sharing/features/home/presentation/widgets/background_room_lights.dart';
 import 'package:ui_common/ui_common.dart';
@@ -40,37 +42,48 @@ class RoomCard extends StatelessWidget {
           // -----------------------------------------------
           // Background information card
           // -----------------------------------------------
-          Transform.scale(
-            scale: 0.85,
-            child: Padding(
-              padding: const EdgeInsets.only(bottom: bottomPadding),
-              child: BackgroundRoomCard(room: room, translation: value),
+          Transform.translate(
+            offset: Offset(0, lerpDouble(0, -50, value) ?? 0),
+            child: Transform.scale(
+              scale: lerpDouble(0.85, 1.05, value),
+              child: Padding(
+                padding: const EdgeInsets.only(bottom: bottomPadding),
+                child: BackgroundRoomCard(room: room, translation: value),
+              ),
             ),
           ),
 
           // -----------------------------------------------
           // Room image card with parallax effect
           // -----------------------------------------------
-          Padding(
-            padding: const EdgeInsets.only(bottom: bottomPadding + 20),
-            child: GestureDetector(
-              onTap: onTap,
-              onVerticalDragUpdate: (details) {
-                if (details.primaryDelta! < -10) onSwipeUp();
-                if (details.primaryDelta! > 10) onSwipeDown();
-              },
-              child: Stack(
-                fit: StackFit.expand,
-                clipBehavior: Clip.none,
-                children: [
-                  ParallaxImageCard(
-                    imageUrl: room.imageUrl,
-                    parallaxValue: percent,
+          Transform.translate(
+            offset: Offset(0, lerpDouble(0, -90, value) ?? 0),
+            child: Transform.scale(
+              scale: lerpDouble(1, 0.85, value),
+              child: Padding(
+                padding: const EdgeInsets.only(bottom: bottomPadding + 20),
+                child: GestureDetector(
+                  onTap: onTap,
+                  onVerticalDragUpdate: (details) {
+                    if (details.primaryDelta! < -10) onSwipeUp();
+                    if (details.primaryDelta! > 10) onSwipeDown();
+                  },
+                  child: Stack(
+                    fit: StackFit.expand,
+                    clipBehavior: Clip.none,
+                    children: [
+                      ParallaxImageCard(
+                        imageUrl: room.imageUrl,
+                        parallaxValue: percent,
+                      ),
+                      VerticalRoomTitle(room: room),
+                      const CameraIconButton(),
+                      AnimatedUpwardArrows(
+                        isExpanded: expand,
+                      )
+                    ],
                   ),
-                  VerticalRoomTitle(room: room),
-                  const CameraIconButton(),
-                  const AnimatedUpwardArrows()
-                ],
+                ),
               ),
             ),
           ),

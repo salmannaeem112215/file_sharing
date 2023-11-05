@@ -15,6 +15,7 @@ class SmartRoomView extends StatefulWidget {
 class _SmartRoomViewState extends State<SmartRoomView> {
   PageController controller = PageController(viewportFraction: 1);
   final ValueNotifier<double> pageNotifier = ValueNotifier(0);
+  final ValueNotifier<int> roomSelectorNotifier = ValueNotifier(-1);
 
   @override
   Widget build(BuildContext context) {
@@ -38,6 +39,7 @@ class _SmartRoomViewState extends State<SmartRoomView> {
             child: SmartRoomsPageView(
               controller: controller,
               pageNotifier: pageNotifier,
+              roomSelectorNotifier: roomSelectorNotifier,
               cardPerScreen: cardPerScreen(width),
             ),
           ),
