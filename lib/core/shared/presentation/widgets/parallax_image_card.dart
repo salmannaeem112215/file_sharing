@@ -26,7 +26,8 @@ class ParallaxImageCard extends StatelessWidget {
           fit: BoxFit.cover,
           colorFilter:
               const ColorFilter.mode(Colors.black26, BlendMode.colorBurn),
-          alignment: Alignment(lerpDouble(.5, -.5, parallaxValue)!, 0),
+          // alignment: Alignment(lerpDouble(.5, -.5, parallaxValue)!, 0),
+          alignment: Alignment(parallaxValue, 0),
         ),
       );
 

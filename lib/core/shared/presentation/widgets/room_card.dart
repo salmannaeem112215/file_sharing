@@ -22,55 +22,56 @@ class RoomCard extends StatelessWidget {
   final VoidCallback onTap;
   final bool expand;
 
+  static const cardRatio = 4 / 6;
+  static const double cardHeight = 500;
+  static const double cardPadding = 32;
+  static const cardWidth = cardRatio * cardHeight;
   static const double bottomPadding = 0;
 
   @override
   Widget build(BuildContext context) {
-    return AspectRatio(
-      aspectRatio: 4 / 7,
-      child: TweenAnimationBuilder<double>(
-        duration: const Duration(milliseconds: 200),
-        curve: Curves.fastOutSlowIn,
-        tween: Tween(begin: 0, end: expand ? 1 : 0),
-        builder: (_, value, __) => Stack(
-          fit: StackFit.expand,
-          children: [
-            // -----------------------------------------------
-            // Background information card
-            // -----------------------------------------------
-            Padding(
-              padding: const EdgeInsets.only(bottom: bottomPadding),
-              child: BackgroundRoomCard(room: room, translation: value),
-            ),
+    return TweenAnimationBuilder<double>(
+      duration: const Duration(milliseconds: 200),
+      curve: Curves.fastOutSlowIn,
+      tween: Tween(begin: 0, end: expand ? 1 : 0),
+      builder: (_, value, __) => Stack(
+        fit: StackFit.expand,
+        children: [
+          // -----------------------------------------------
+          // Background information card
+          // -----------------------------------------------
+          Padding(
+            padding: const EdgeInsets.only(bottom: bottomPadding),
+            child: BackgroundRoomCard(room: room, translation: value),
+          ),
 
-            // -----------------------------------------------
-            // Room image card with parallax effect
-            // -----------------------------------------------
-            Padding(
-              padding: const EdgeInsets.only(bottom: bottomPadding + 20),
-              child: GestureDetector(
-                onTap: onTap,
-                onVerticalDragUpdate: (details) {
-                  if (details.primaryDelta! < -10) onSwipeUp();
-                  if (details.primaryDelta! > 10) onSwipeDown();
-                },
-                child: Stack(
-                  fit: StackFit.expand,
-                  clipBehavior: Clip.none,
-                  children: [
-                    ParallaxImageCard(
-                      imageUrl: room.imageUrl,
-                      parallaxValue: percent,
-                    ),
-                    VerticalRoomTitle(room: room),
-                    const CameraIconButton(),
-                    const AnimatedUpwardArrows()
-                  ],
-                ),
+          // -----------------------------------------------
+          // Room image card with parallax effect
+          // -----------------------------------------------
+          Padding(
+            padding: const EdgeInsets.only(bottom: bottomPadding + 20),
+            child: GestureDetector(
+              onTap: onTap,
+              onVerticalDragUpdate: (details) {
+                if (details.primaryDelta! < -10) onSwipeUp();
+                if (details.primaryDelta! > 10) onSwipeDown();
+              },
+              child: Stack(
+                fit: StackFit.expand,
+                clipBehavior: Clip.none,
+                children: [
+                  ParallaxImageCard(
+                    imageUrl: room.imageUrl,
+                    parallaxValue: percent,
+                  ),
+                  VerticalRoomTitle(room: room),
+                  const CameraIconButton(),
+                  const AnimatedUpwardArrows()
+                ],
               ),
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }
