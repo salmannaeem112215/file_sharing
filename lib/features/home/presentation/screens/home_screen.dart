@@ -28,7 +28,9 @@ class _HomeScreenState extends State<HomeScreen> {
               const SizedBox(height: 24),
               Text("SELECT A ROOM", style: context.bodyLarge),
               kHeight32,
-              const SmartRoomView(),
+              Container(
+                  color: Colors.amber.withOpacity(0),
+                  child: const SmartRoomView()),
               const SmHomeBottomNavigationBar(),
             ],
           ),

@@ -23,6 +23,14 @@ class _SmartRoomViewState extends State<SmartRoomView> {
     return Stack(
       clipBehavior: Clip.none,
       children: [
+        const Positioned.fill(
+          top: null,
+          child: Column(
+            children: [
+              PageIndicators(),
+            ],
+          ),
+        ),
         Container(
           padding: const EdgeInsets.only(bottom: 40),
           child: SizedBox(
@@ -32,14 +40,6 @@ class _SmartRoomViewState extends State<SmartRoomView> {
               pageNotifier: pageNotifier,
               cardPerScreen: cardPerScreen(width),
             ),
-          ),
-        ),
-        const Positioned.fill(
-          top: null,
-          child: Column(
-            children: [
-              PageIndicators(),
-            ],
           ),
         ),
       ],

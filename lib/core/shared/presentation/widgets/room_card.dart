@@ -40,9 +40,12 @@ class RoomCard extends StatelessWidget {
           // -----------------------------------------------
           // Background information card
           // -----------------------------------------------
-          Padding(
-            padding: const EdgeInsets.only(bottom: bottomPadding),
-            child: BackgroundRoomCard(room: room, translation: value),
+          Transform.scale(
+            scale: 0.85,
+            child: Padding(
+              padding: const EdgeInsets.only(bottom: bottomPadding),
+              child: BackgroundRoomCard(room: room, translation: value),
+            ),
           ),
 
           // -----------------------------------------------
