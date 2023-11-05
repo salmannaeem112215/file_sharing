@@ -40,11 +40,6 @@ class SmartRoomView extends StatelessWidget {
   }
 
   getViewportFraction(double width) {
-    // if (width < 350) {
-
-    //   return 0.8;
-    // } else {
     return 0.8 / (width / 350);
-    // }
   }
 }
