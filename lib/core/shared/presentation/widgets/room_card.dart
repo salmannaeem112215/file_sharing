@@ -42,26 +42,24 @@ class RoomCard extends StatelessWidget {
           // -----------------------------------------------
           // Background information card
           // -----------------------------------------------
-          Transform.translate(
-            offset: Offset(0, lerpDouble(0, -50, value) ?? 0),
-            child: Transform.scale(
-              scale: lerpDouble(0.85, 1.05, value),
-              child: Padding(
-                padding: const EdgeInsets.only(bottom: bottomPadding),
-                child: BackgroundRoomCard(room: room, translation: value),
-              ),
+          Transform.scale(
+            scale: lerpDouble(0.85, 1.05, value),
+            child: Padding(
+              padding: const EdgeInsets.only(bottom: bottomPadding),
+              child: BackgroundRoomCard(room: room, translation: value),
             ),
           ),
 
           // -----------------------------------------------
           // Room image card with parallax effect
           // -----------------------------------------------
-          Transform.translate(
-            offset: Offset(0, lerpDouble(0, -90, value) ?? 0),
-            child: Transform.scale(
-              scale: lerpDouble(1, 0.85, value),
-              child: Padding(
-                padding: const EdgeInsets.only(bottom: bottomPadding + 20),
+          Transform.scale(
+            scale: lerpDouble(1, 0.85, value),
+            child: Padding(
+              padding: const EdgeInsets.only(bottom: bottomPadding + 20),
+              child: Transform(
+                transform: Matrix4.translationValues(0, -100 * value, 0),
+                // offset: Offset(0, lerpDouble(0, -90, value) ?? 0),
                 child: GestureDetector(
                   onTap: onTap,
                   onVerticalDragUpdate: (details) {

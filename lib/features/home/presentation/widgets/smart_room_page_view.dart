@@ -21,6 +21,19 @@ class SmartRoomsPageView extends StatelessWidget {
   static get length => SmartRoom.fakeValues.length;
   static final listKey = GlobalKey();
 
+  double _getOffsetX(double percent) => percent.isNegative ? 30 : -30;
+
+  Matrix4 _getOutTranslate({
+    required double percent,
+    required int selectedRoom,
+    required int index,
+  }) {
+    double x = selectedRoom != index && selectedRoom != -1
+        ? _getOffsetX(selectedRoom > index ? 1 : -1)
+        : 0;
+    return Matrix4.translationValues(x, 0, 0);
+  }
+
   @override
   Widget build(BuildContext context) {
     return ScrollConfiguration(
@@ -38,9 +51,15 @@ class SmartRoomsPageView extends StatelessWidget {
                     itemCount: SmartRoom.fakeValues.length,
                     itemBuilder: (_, index) {
                       final room = SmartRoom.fakeValues[index];
+                      double percent = currentPage - index;
                       return Container(
                         padding: const EdgeInsets.symmetric(
                             horizontal: RoomCard.cardPadding / 2),
+                        transform: _getOutTranslate(
+                          percent: percent,
+                          selectedRoom: selected,
+                          index: index,
+                        ),
                         child: RoomCard(
                           percent:
                               getPercent(curentPage: currentPage, index: index),
